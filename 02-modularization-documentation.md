@@ -11,7 +11,7 @@ We are interested in understanding the relationship between the weather and the 
 Since we want to apply these mosquito control measures at a number of different sites we need to understand how the relationship varies across sites.
 Remember that we have a series of CSV files with each file containing the data for a single location.
 
-## Objectives
+## Learning Objectives
 
 
 * Write code for people, not computers

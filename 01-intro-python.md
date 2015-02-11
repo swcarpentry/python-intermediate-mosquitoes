@@ -17,14 +17,13 @@ year,temperature,rainfall,mosquitos
 2003,77,176,166
 ~~~
 
-## Objectives
-
-
-* Conduct variable assignment, looping, and conditionals in Python
-* Use an external Python library
-* Read tabular data from a file
-* Subset and perform analysis on data
-* Display simple graphs
+> ## Learning Objectives {.objectives}
+> 
+> * Conduct variable assignment, looping, and conditionals in Python
+> * Use an external Python library
+> * Read tabular data from a file
+> * Subset and perform analysis on data
+> * Display simple graphs
 
 ## Loading Data
 
@@ -372,10 +371,11 @@ print data[&#39;mosquitos&#39;][1:3].std()
 
 ~~~
 
-### Challenge
-
-
-Import the data from `mosquito_data_A2.csv`, create a new variable that holds a data frame with only the weather data, and print the means and standard deviations for the weather variables.
+> ### Challenge {.challenge}
+> 
+> Import the data from `mosquito_data_A2.csv`, create a new variable
+> that holds a data frame with only the weather data, and print the
+> means and standard deviations for the weather variables.
 
 ## Loops
 
@@ -486,10 +486,12 @@ else:
 
 ~~~
 
-### Challenge
-
-
-Import the data from `mosquito_data_A2.csv`, determine the mean temperate, and loop over the temperature values. For each value print out whether it is greater than the mean, less than the mean, or equal to the mean.
+> ### Challenge {.challenge}
+> 
+> Import the data from `mosquito_data_A2.csv`, determine the mean
+> temperate, and loop over the temperature values. For each value
+> print out whether it is greater than the mean, less than the mean,
+> or equal to the mean.
 
 ## Plotting
 
@@ -549,10 +551,11 @@ plt.show()
 <img src="../../intermediate/python/01-intro-python_files/intermediate/python/01-intro-python_68_0.png">
 </div>
 
-### Challenge
-
-
-Using the data in `mosquito_data_A2.csv` plot the relationship between the number of mosquitos and temperature and the number of mosquitos and rainfall.
+> ### Challenge {.challenge}
+> 
+> Using the data in `mosquito_data_A2.csv` plot the relationship
+> between the number of mosquitos and temperature and the number of
+> mosquitos and rainfall.
 
 ### Key Points
 

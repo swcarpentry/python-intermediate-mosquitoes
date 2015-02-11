@@ -24,11 +24,12 @@ don't know NumPy and matplotlib well).
 > The code in this lesson was written against Python 2.7, but should work 
 > with little or no modification under Python 3.
 
-## Objectives
 
-- Understand the major parallel programming models
-- Learn how to implement simple multiprocessor parallelization
-- Evaluate the performance speedup gained from parallelization
+> ## Learning Objectives {.objectives}
+> 
+> - Understand the major parallel programming models
+> - Learn how to implement simple multiprocessor parallelization
+> - Evaluate the performance speedup gained from parallelization
 
 ## Parallel programming models
 
@@ -428,13 +429,13 @@ make sure you pass no more data than you really need to.  For example,
 rather than passing a huge list and the index of the item that your
 taks is supposed to process, you should pass only that item.
 
-## Challenge
-
-Run the <a href="plot_rand_mp.py" target="_blank">example
-application</a> on your computer several times.  Each time, vary the
-number of processors to use and note how the computation efficiency
-varies.  You can use the Unix `time` program to measure execution
-times.
+> ## Challenge {.challenge}
+> 
+> Run the <a href="plot_rand_mp.py" target="_blank">example
+> application</a> on your computer several times.  Each time, vary the
+> number of processors to use and note how the computation efficiency
+> varies.  You can use the Unix `time` program to measure execution
+> times.
 
 ## Key Points
 
