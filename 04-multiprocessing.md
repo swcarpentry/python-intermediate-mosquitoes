@@ -16,11 +16,11 @@ target="_blank">documentation</a> to learn more, or to answer any
 detailed questions as we will only cover a small subset of the
 library's functionality.
 
-This lesson assumes you have completed the [Programming with
-Python](../../novice/python/index.html) lessons or have some
-familiarity with using functions, loops, conditionals, command line
-argument processing, NumPy, and matplotlib (though don't worry if you
-don't know NumPy and matplotlib well).
+This lesson assumes you have completed the 
+[novice python](http://swcarpentry.github.io/python-novice-inflammation/) 
+lessons or have some familiarity with using functions, loops,
+conditionals, command line argument processing, NumPy, and matplotlib 
+(though don't worry if you don't know NumPy and matplotlib well).
 
 > The code in this lesson was written against Python 2.7, but should work 
 > with little or no modification under Python 3.

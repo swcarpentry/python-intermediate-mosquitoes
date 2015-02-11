@@ -656,14 +656,14 @@ but it seems unlikely enough that we we're probably in good shape for now.
 OK, the `center` function seems to be working fine.
 Does anyone else see anything that's missing before we move on?
 
-Yes, we should write some [documentation](../../gloss.html#documentation)
+Yes, we should write some *documentation*
 to remind ourselves later what it's for and how to use it.
 This function may be fairly straightforward,
 but in most cases it won't be so easy to remember exactly what a function is doing in a few months.
 Just imagine looking at our `analyze` function a few months in the future
 and trying to remember exactly what it was doing just based on the code.
 
-The usual way to put documentation in code is to add [comments](../../gloss.html#comment) like this:
+The usual way to put documentation in code is to add *comments* like this:
 
 
 ~~~ {.python}
@@ -702,7 +702,7 @@ center(data, desired)
 ~~~
 
 
-A string like this is called a [docstring](../../gloss.html#docstring)
+A string like this is called a *docstring*
 and there are also automatic documentation generators that use these docstrings to produce documentation for users.
 We use triple quotes because
 it allows us to include multiple lines of text and because it is considered good Python style.
