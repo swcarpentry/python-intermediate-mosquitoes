@@ -1,6 +1,7 @@
 ---
-layout: lesson
-root: ../..
+layout: page
+title: Intermediate Python
+subtitle: Modularization and Documentation
 ---
 
 # Modularization and Documentation

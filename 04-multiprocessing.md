@@ -1,6 +1,7 @@
 ---
-layout: lesson
-root: ../..
+layout: page
+title: Intermediate Python
+subtitle: Parallel Programming
 ---
 
 # Parallel programming with Python's multiprocessing library

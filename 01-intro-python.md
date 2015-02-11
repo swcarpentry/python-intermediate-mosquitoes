@@ -1,6 +1,7 @@
 ---
-layout: lesson
-root: ../..
+layout: page
+title: Intermediate Python
+subtitle: Analyzing Mosquito Data
 ---
 
 # Introduction

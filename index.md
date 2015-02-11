@@ -1,7 +1,6 @@
 ---
-layout: lesson
-root: ../..
-title: Programming with Python
+layout: page
+title: Intermediate Python
 ---
 This lesson assumes that you already understand basic programming concepts
 and are either familiar with,
