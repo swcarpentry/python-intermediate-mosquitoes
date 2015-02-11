@@ -4,7 +4,7 @@ title: Intermediate Python
 subtitle: Modularization and Documentation
 ---
 
-# Modularization and Documentation
+## Modularization and Documentation
 
 
 Now that we've covered some of the basic syntax and libraries in Python we can start to tackle our data analysis problem.
@@ -363,23 +363,29 @@ print two_squared
 
 ~~~
 
-### Challenges
 
+> ## Challenges {.challenge}
+> 
+> 1. Write a function that converts temperature from Fahrenheit to
+>    Celcius and use it to replace
+> 
+> ~~~python
+> data['temperature'] = (data['temperature'] - 32) * 5 / 9.0
+> ~~~
+> 
+> in our program.
+> 
+> 2. Write a function called `analyze()` that takes `data` as an
+>    input, performs the regression, makes the observed-predicted
+>    plot, and returns `parameters`.
+> 
+> *Walk through someone's result.
+> When discussing talk about different names.
+> E.g., fahr_to_celcius is better than temp_to_celcius since it is
+> explicit both the input and the output.
+> Talk about the fact that even though this doesn't save us any lines
+> of code it's still easier to read.*
 
-1\. Write a function that converts temperature from Fahrenheit to Celcius and use it to replace
-
-~~~python
-data['temperature'] = (data['temperature'] - 32) * 5 / 9.0
-~~~
-
-in our program.
-
-2\. Write a function called `analyze()` that takes `data` as an input, performs the regression, makes the observed-predicted plot, and returns `parameters`.
-
-*Walk through someone's result.
-When discussing talk about different names.
-E.g., fahr_to_celcius is better than temp_to_celcius since it is explicit both the input and the output.
-Talk about the fact that even though this doesn't save us any lines of code it's still easier to read.*
 
 ## The call stack
 

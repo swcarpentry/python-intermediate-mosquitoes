@@ -4,7 +4,7 @@ title: Intermediate Python
 subtitle: Parallel Programming
 ---
 
-# Parallel programming with Python's multiprocessing library
+## Parallel programming with Python's multiprocessing library
 
 In this lesson, you will learn how to write programs that perform
 several tasks in parallel using Python's built-in <a
