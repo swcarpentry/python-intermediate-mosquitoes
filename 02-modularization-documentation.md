@@ -37,7 +37,7 @@ In fact, I would actually start by just importing the data and making sure that 
 ~~~ {.python}
 import pandas as pd
 
-d = pd.read_csv(&#39;A2_mosquito_data.csv&#39;)
+d = pd.read_csv('A2_mosquito_data.csv')
 print d
 ~~~
 
@@ -113,7 +113,7 @@ and an important first step is to *use meaningful varible names*.
 ~~~ {.python}
 import pandas as pd
 
-data = pd.read_csv(&#39;A2_mosquito_data.csv&#39;)
+data = pd.read_csv('A2_mosquito_data.csv')
 print data.head()
 ~~~
 
@@ -142,7 +142,7 @@ To rerun all of the cells in a notebook you can select `Cell -> Run All` from th
 
 
 ~~~ {.python}
-data[&#39;temperature&#39;] = (data[&#39;temperature&#39;] - 32) * 5 / 9.0
+data['temperature'] = (data['temperature'] - 32) * 5 / 9.0
 print data.head()
 ~~~
 
@@ -165,13 +165,13 @@ We'll use the `statsmodels` library to conduct the regression.
 ~~~ {.python}
 import statsmodels.api as sm
 
-regr_results = sm.OLS.from_formula(&#39;mosquitos ~ temperature + rainfall&#39;, data).fit()
+regr_results = sm.OLS.from_formula('mosquitos ~ temperature + rainfall', data).fit()
 regr_results.summary()
 ~~~
 
 ~~~ {.output}
-&lt;class &#39;statsmodels.iolib.summary.Summary&#39;&gt;
-&#34;&#34;&#34;
+<class 'statsmodels.iolib.summary.Summary'>
+"""
                             OLS Regression Results                            
 ==============================================================================
 Dep. Variable:              mosquitos   R-squared:                       0.997
@@ -183,7 +183,7 @@ No. Observations:                  51   AIC:                             229.1
 Df Residuals:                      48   BIC:                             234.9
 Df Model:                           2                                         
 ===============================================================================
-                  coef    std err          t      P&gt;|t|      [95.0% Conf. Int.]
+                  coef    std err          t      P>|t|      [95.0% Conf. Int.]
 -------------------------------------------------------------------------------
 Intercept      17.5457      2.767      6.341      0.000        11.983    23.109
 temperature     0.8719      0.092      9.457      0.000         0.687     1.057
@@ -198,7 +198,7 @@ Kurtosis:                       3.343   Cond. No.                     1.92e+03
 Warnings:
 [1] The condition number is large, 1.92e+03. This might indicate that there are
 strong multicollinearity or other numerical problems.
-&#34;&#34;&#34;
+"""
 ~~~
 
 
@@ -248,14 +248,14 @@ First, remember to tell the notebook that we want our plots to appear in the not
 ~~~ {.python}
 import matplotlib.pyplot as plt
 
-predicted = parameters[0] + parameters[1] * data[&#39;temperature&#39;] + parameters[2] * data[&#39;rainfall&#39;]
-plt.plot(predicted, data[&#39;mosquitos&#39;], &#39;ro&#39;)
-min_mosquitos, max_mosquitos = min(data[&#39;mosquitos&#39;]), max(data[&#39;mosquitos&#39;])
-plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], &#39;k-&#39;)
+predicted = parameters[0] + parameters[1] * data['temperature'] + parameters[2] * data['rainfall']
+plt.plot(predicted, data['mosquitos'], 'ro')
+min_mosquitos, max_mosquitos = min(data['mosquitos']), max(data['mosquitos'])
+plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
 ~~~
 
 ~~~ {.output}
-[&lt;matplotlib.lines.Line2D at 0x56eb950&gt;]
+[<matplotlib.lines.Line2D at 0x56eb950>]
 ~~~
 <img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_19_1.png">
 </div>
@@ -272,17 +272,17 @@ import pandas as pd
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
-data = pd.read_csv(&#39;A2_mosquito_data.csv&#39;)
-data[&#39;temperature&#39;] = (data[&#39;temperature&#39;] - 32) * 5 / 9.0
-regr_results = sm.OLS.from_formula(&#39;mosquitos ~ temperature + rainfall&#39;, data).fit()
+data = pd.read_csv('A2_mosquito_data.csv')
+data['temperature'] = (data['temperature'] - 32) * 5 / 9.0
+regr_results = sm.OLS.from_formula('mosquitos ~ temperature + rainfall', data).fit()
 parameters = regr_results.params
 rsquared = regr_results.rsquared
-predicted = parameters[0] + parameters[1] * data[&#39;temperature&#39;] + parameters[2] * data[&#39;rainfall&#39;]
-plt.plot(predicted, data[&#39;mosquitos&#39;], &#39;ro&#39;)
-min_mosquitos, max_mosquitos = min(data[&#39;mosquitos&#39;]), max(data[&#39;mosquitos&#39;])
-plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], &#39;k-&#39;)
+predicted = parameters[0] + parameters[1] * data['temperature'] + parameters[2] * data['rainfall']
+plt.plot(predicted, data['mosquitos'], 'ro')
+min_mosquitos, max_mosquitos = min(data['mosquitos']), max(data['mosquitos'])
+plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
 print parameters
-print &#34;R^2 = &#34;, rsquared
+print "R^2 = ", rsquared
 ~~~
 
 ~~~ {.output}
@@ -323,8 +323,8 @@ def square(x):
     x_squared = x ** 2
     return x_squared
 
-print &#34;Four squared is&#34;, square(4)
-print &#34;Five squared is&#34;, square(5)
+print "Four squared is", square(4)
+print "Five squared is", square(5)
 ~~~
 
 ~~~ {.output}
@@ -440,10 +440,10 @@ print tempC
 
 <div class="out"><pre class='err'><code>---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-&lt;ipython-input-14-3054d7679e45&gt; in &lt;module&gt;()
-----&gt; 1 print tempC
+<ipython-input-14-3054d7679e45> in <module>()
+----> 1 print tempC
 
-NameError: name &#39;tempC&#39; is not defined
+NameError: name 'tempC' is not defined
 ~~~
 
 
@@ -519,7 +519,7 @@ so let's try `center` on our real data:
 
 
 ~~~ {.python}
-data = pd.read_csv(&#39;A2_mosquito_data.csv&#39;)
+data = pd.read_csv('A2_mosquito_data.csv')
 print center(data)
 ~~~
 
@@ -585,11 +585,11 @@ but there are a few simple tests that will reassure us:
 
 
 ~~~ {.python}
-print &#39;original mean:&#39;
+print 'original mean:'
 print data.mean()
 centered = center(data)
 print
-print &#39;mean of centered data:&#39;
+print 'mean of centered data:'
 centered.mean()
 ~~~
 
@@ -617,7 +617,7 @@ We can even go further and check that the standard deviation hasn't changed
 
 
 ~~~ {.python}
-print &#39;std dev before and after:&#39;
+print 'std dev before and after:'
 print data.std()
 print
 print centered.std()
@@ -674,7 +674,7 @@ that string is attached to the function as its documentation:
 
 ~~~ {.python}
 def center(data, desired):
-    &#34;&#34;&#34;Return a new DataFrame containing the original data centered around zero.&#34;&#34;&#34;
+    """Return a new DataFrame containing the original data centered around zero."""
     return data - data.mean()
 ~~~
 
@@ -704,18 +704,18 @@ it allows us to include multiple lines of text and because it is considered good
 
 ~~~ {.python}
 def center(data):
-    &#34;&#34;&#34;Return a new array containing the original data centered on zero
+    """Return a new array containing the original data centered on zero
     
     Example:
-    &gt;&gt;&gt; import pandas
-    &gt;&gt;&gt; data = pandas.DataFrame([[0, 1], [0, 2])
-    &gt;&gt;&gt; center(data)
+    >>> import pandas
+    >>> data = pandas.DataFrame([[0, 1], [0, 2])
+    >>> center(data)
        0    1
     0  0 -0.5
     1  0  0.5
 
      
-    &#34;&#34;&#34;
+    """
     return data - data.mean()
 
 help(center)
@@ -728,9 +728,9 @@ center(data)
     Return a new array containing the original data centered on zero
     
     Example:
-    &gt;&gt;&gt; import pandas
-    &gt;&gt;&gt; data = pandas.DataFrame([[0, 1], [0, 2])
-    &gt;&gt;&gt; center(data)
+    >>> import pandas
+    >>> data = pandas.DataFrame([[0, 1], [0, 2])
+    >>> center(data)
        0    1
     0  0 -0.5
     1  0  0.5
@@ -757,32 +757,32 @@ import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
 def fahr_to_celsius(tempF):
-    &#34;&#34;&#34;Convert fahrenheit to celsius&#34;&#34;&#34;
+    """Convert fahrenheit to celsius"""
     tempC = (tempF - 32) * 5 / 9.0
     return tempC
 
 def analyze(data):
-    &#34;&#34;&#34;Perform regression analysis on mosquito data
+    """Perform regression analysis on mosquito data
     
-    Takes a dataframe as input that includes columns named &#39;temperature&#39;,
-    &#39;rainfall&#39;, and &#39;mosquitos&#39;.
+    Takes a dataframe as input that includes columns named 'temperature',
+    'rainfall', and 'mosquitos'.
     
     Performs a multiple regression to predict the number of mosquitos.
     Creates an observed-predicted plot of the result and
     returns the parameters of the regression.
     
-    &#34;&#34;&#34;
-    regr_results = sm.OLS.from_formula(&#39;mosquitos ~ temperature + rainfall&#39;, data).fit()
+    """
+    regr_results = sm.OLS.from_formula('mosquitos ~ temperature + rainfall', data).fit()
     parameters = regr_results.params
-    predicted = parameters[0] + parameters[1] * data[&#39;temperature&#39;] + parameters[2] * data[&#39;rainfall&#39;]
+    predicted = parameters[0] + parameters[1] * data['temperature'] + parameters[2] * data['rainfall']
     plt.figure()
-    plt.plot(predicted, data[&#39;mosquitos&#39;], &#39;ro&#39;)
-    min_mosquitos, max_mosquitos = min(data[&#39;mosquitos&#39;]), max(data[&#39;mosquitos&#39;])
-    plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], &#39;k-&#39;)
+    plt.plot(predicted, data['mosquitos'], 'ro')
+    min_mosquitos, max_mosquitos = min(data['mosquitos']), max(data['mosquitos'])
+    plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
     return parameters
 
-data = pd.read_csv(&#39;A2_mosquito_data.csv&#39;)
-data[&#39;temperature&#39;] = fahr_to_celsius(data[&#39;temperature&#39;])
+data = pd.read_csv('A2_mosquito_data.csv')
+data['temperature'] = fahr_to_celsius(data['temperature'])
 regr_results = analyze(data)
 print parameters
 ~~~
@@ -808,12 +808,12 @@ Fortunately Python has a built in library to help us find the files we want to w
 ~~~ {.python}
 import glob
 
-filenames = glob.glob(&#39;*.csv&#39;)
+filenames = glob.glob('*.csv')
 print filenames
 ~~~
 
 ~~~ {.output}
-[&#39;A1_mosquito_data.csv&#39;, &#39;B2_mosquito_data.csv&#39;, &#39;A3_mosquito_data.csv&#39;, &#39;B1_mosquito_data.csv&#39;, &#39;A2_mosquito_data.csv&#39;]
+['A1_mosquito_data.csv', 'B2_mosquito_data.csv', 'A3_mosquito_data.csv', 'B1_mosquito_data.csv', 'A2_mosquito_data.csv']
 
 ~~~
 
@@ -825,12 +825,12 @@ including functions.
 
 
 ~~~ {.python}
-mylist = [1, &#39;a&#39;, center]
+mylist = [1, 'a', center]
 print mylist
 ~~~
 
 ~~~ {.output}
-[1, &#39;a&#39;, &lt;function center at 0x5c63b18&gt;]
+[1, 'a', <function center at 0x5c63b18>]
 
 ~~~
 
@@ -845,7 +845,7 @@ and print out the filenames one at a time.
 
 
 ~~~ {.python}
-filenames =glob.glob(&#39;*data.csv&#39;)
+filenames =glob.glob('*data.csv')
 for filename in filenames:
     print filename
 ~~~

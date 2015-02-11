@@ -42,7 +42,7 @@ We can now use Pandas to read our data file.
 
 
 ~~~ {.python}
-pandas.read_csv(&#39;mosquito_data_A1.csv&#39;)
+pandas.read_csv('mosquito_data_A1.csv')
 ~~~
 
 ~~~ {.output}
@@ -68,7 +68,7 @@ Our call to `pandas.read_csv()` read data into memory, but didn't save it anywhe
 
 
 ~~~ {.python}
-data = pandas.read_csv(&#39;mosquito_data_A1.csv&#39;)
+data = pandas.read_csv('mosquito_data_A1.csv')
 ~~~
 
 
@@ -130,7 +130,7 @@ print type(data)
 ~~~
 
 ~~~ {.output}
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+<class 'pandas.core.frame.DataFrame'>
 
 ~~~
 
@@ -142,7 +142,7 @@ We can select an individual column of data using its name:
 
 
 ~~~ {.python}
-print data[&#39;year&#39;]
+print data['year']
 ~~~
 
 ~~~ {.output}
@@ -165,7 +165,7 @@ Or we can select several columns of data at once:
 
 
 ~~~ {.python}
-print data[[&#39;rainfall&#39;, &#39;temperature&#39;]]
+print data[['rainfall', 'temperature']]
 ~~~
 
 ~~~ {.output}
@@ -213,45 +213,45 @@ data[1]
 
 <div class="out"><pre class='err'><code>---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
-&lt;ipython-input-10-c805864c0d75&gt; in &lt;module&gt;()
-----&gt; 1 data[1]
+<ipython-input-10-c805864c0d75> in <module>()
+----> 1 data[1]
 
 /usr/lib/python2.7/dist-packages/pandas/core/frame.pyc in __getitem__(self, key)
    2001             # get column
    2002             if self.columns.is_unique:
--&gt; 2003                 return self._get_item_cache(key)
+-> 2003                 return self._get_item_cache(key)
    2004 
    2005             # duplicate columns
 
 /usr/lib/python2.7/dist-packages/pandas/core/generic.pyc in _get_item_cache(self, item)
     665             return cache[item]
     666         except Exception:
---&gt; 667             values = self._data.get(item)
+--> 667             values = self._data.get(item)
     668             res = self._box_item_values(item, values)
     669             cache[item] = res
 
 /usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in get(self, item)
    1653     def get(self, item):
    1654         if self.items.is_unique:
--&gt; 1655             _, block = self._find_block(item)
+-> 1655             _, block = self._find_block(item)
    1656             return block.get(item)
    1657         else:
 
 /usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _find_block(self, item)
    1933 
    1934     def _find_block(self, item):
--&gt; 1935         self._check_have(item)
+-> 1935         self._check_have(item)
    1936         for i, block in enumerate(self.blocks):
    1937             if item in block:
 
 /usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _check_have(self, item)
    1940     def _check_have(self, item):
    1941         if item not in self.items:
--&gt; 1942             raise KeyError(&#39;no item named %s&#39; % com.pprint_thing(item))
+-> 1942             raise KeyError('no item named %s' % com.pprint_thing(item))
    1943 
    1944     def reindex_axis(self, new_axis, method=None, axis=0, copy=True):
 
-KeyError: u&#39;no item named 1&#39;
+KeyError: u'no item named 1'
 ~~~
 
 
@@ -305,7 +305,7 @@ We can also subset the data based on the value of other rows:
 
 
 ~~~ {.python}
-print data[&#39;temperature&#39;][data[&#39;year&#39;] &gt; 2005]
+print data['temperature'][data['year'] > 2005]
 ~~~
 
 ~~~ {.output}
@@ -354,7 +354,7 @@ dtype: int64
 
 
 ~~~ {.python}
-print data[&#39;temperature&#39;].min()
+print data['temperature'].min()
 ~~~
 
 ~~~ {.output}
@@ -364,7 +364,7 @@ print data[&#39;temperature&#39;].min()
 
 
 ~~~ {.python}
-print data[&#39;mosquitos&#39;][1:3].std()
+print data['mosquitos'][1:3].std()
 ~~~
 
 ~~~ {.output}
@@ -393,7 +393,7 @@ So if we want to loop over the temperatures and print out there values in degree
 
 
 ~~~ {.python}
-temps = data[&#39;temperature&#39;]
+temps = data['temperature']
 for temp_in_f in temps:
     temp_in_c = (temp_in_f - 32) * 5 / 9.0
     print temp_in_c
@@ -418,7 +418,7 @@ That looks good, but why did we use 9.0 instead of 9? The reason is that compute
 
 
 ~~~ {.python}
-print &#39;10/3 is:&#39;, 10 / 3
+print '10/3 is:', 10 / 3
 ~~~
 
 ~~~ {.output}
@@ -431,7 +431,7 @@ If either part of the division is a float, on the other hand, the computer creat
 
 
 ~~~ {.python}
-print &#39;10/3.0 is:&#39;, 10 / 3.0
+print '10/3.0 is:', 10 / 3.0
 ~~~
 
 ~~~ {.output}
@@ -456,9 +456,9 @@ So if we want to loop over the temperatures and print out only those temperature
 
 
 ~~~ {.python}
-temp = data[&#39;temperature&#39;][0]
-if temp &gt; 80:
-    print &#34;The temperature is greater than 80&#34;
+temp = data['temperature'][0]
+if temp > 80:
+    print "The temperature is greater than 80"
 ~~~
 
 ~~~ {.output}
@@ -473,13 +473,13 @@ Additional conditions can be handled using `elif` and `else`:
 
 
 ~~~ {.python}
-temp = data[&#39;temperature&#39;][0]
-if temp &lt; 87:
-    print &#34;The temperature is &lt; 87&#34;
-elif temp &gt; 87:
-    print &#34;The temperature is &gt; 87&#34;
+temp = data['temperature'][0]
+if temp < 87:
+    print "The temperature is < 87"
+elif temp > 87:
+    print "The temperature is > 87"
 else:
-    print &#34; The temperature is equal to 87&#34;
+    print " The temperature is equal to 87"
 ~~~
 
 ~~~ {.output}
@@ -519,12 +519,12 @@ Now, let's make a simple plot showing how the number of mosquitos varies over ti
 
 
 ~~~ {.python}
-data = pandas.read_csv(&#39;mosquito_data_A2.csv&#39;)
-plt.plot(data[&#39;year&#39;], data[&#39;mosquitos&#39;])
+data = pandas.read_csv('mosquito_data_A2.csv')
+plt.plot(data['year'], data['mosquitos'])
 ~~~
 
 ~~~ {.output}
-[&lt;matplotlib.lines.Line2D at 0x4a88590&gt;]
+[<matplotlib.lines.Line2D at 0x4a88590>]
 ~~~
 <img src="../../intermediate/python/01-intro-python_files/intermediate/python/01-intro-python_66_1.png">
 </div>
@@ -537,14 +537,14 @@ More complicated plots can be created by adding a little additional information.
 plt.figure(figsize=(10.0, 3.0))
 
 plt.subplot(1, 2, 1)
-plt.plot(data[&#39;year&#39;], data[&#39;temperature&#39;], &#39;ro-&#39;)
-plt.xlabel(&#39;Year&#39;)
-plt.ylabel(&#39;Temperature&#39;)
+plt.plot(data['year'], data['temperature'], 'ro-')
+plt.xlabel('Year')
+plt.ylabel('Temperature')
 
 plt.subplot(1, 2, 2)
-plt.plot(data[&#39;year&#39;], data[&#39;rainfall&#39;], &#39;bs-&#39;)
-plt.xlabel(&#39;Year&#39;)
-plt.ylabel(&#39;Rain Fall&#39;)
+plt.plot(data['year'], data['rainfall'], 'bs-')
+plt.xlabel('Year')
+plt.ylabel('Rain Fall')
 plt.show()
 ~~~
 
