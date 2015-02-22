@@ -256,7 +256,8 @@ data from a single row:
 data[1]
 ~~~
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+~~~ {.output}
+---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
 <ipython-input-10-c805864c0d75> in <module>()
 ----> 1 data[1]
@@ -607,8 +608,8 @@ plt.plot(data['year'], data['mosquitos'])
 ~~~ {.output}
 [<matplotlib.lines.Line2D at 0x4a88590>]
 ~~~
-<img src="../../intermediate/python/01-intro-python_files/intermediate/python/01-intro-python_66_1.png">
-</div>
+
+![Number of mosquitoes through time](fig/01-intro-python_66_1.png)
 
 
 More complicated plots can be created by adding a little additional
@@ -631,9 +632,8 @@ plt.ylabel('Rain Fall')
 plt.show()
 ~~~
 
-<div class="out">
-<img src="../../intermediate/python/01-intro-python_files/intermediate/python/01-intro-python_68_0.png">
-</div>
+![Temperature and rainfall through time](fig/01-intro-python_68_0.png)
+
 
 > ## Challenge {.challenge}
 > 

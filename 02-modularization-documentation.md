@@ -257,8 +257,8 @@ plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
 ~~~ {.output}
 [<matplotlib.lines.Line2D at 0x56eb950>]
 ~~~
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_19_1.png">
-</div>
+
+![Regression of mosquitoes](fig/02-modularization-documentation_19_1.png)
 
 
 OK, great.
@@ -293,8 +293,8 @@ dtype: float64
 R^2 =  0.996966873691
 
 ~~~
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_21_1.png">
-</div>
+
+![Regression of mosquitoes](fig/02-modularization-documentation_21_1.png)
 
 ## Functions
 
@@ -444,7 +444,7 @@ Python tells us that there's no such thing:
 print tempC
 ~~~
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+~~~ {.output}
 NameError                                 Traceback (most recent call last)
 <ipython-input-14-3054d7679e45> in <module>()
 ----> 1 print tempC
@@ -800,8 +800,8 @@ rainfall        0.696717
 dtype: float64
 
 ~~~
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_64_1.png">
-</div>
+
+![Regression of mosquitoes](fig/02-modularization-documentation_64_1.png)
 
 
 Now we want to loop over all of the possible data files,
