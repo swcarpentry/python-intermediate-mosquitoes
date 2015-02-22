@@ -138,15 +138,47 @@ Name: year, dtype: int64
 <p>The other thing to note is that the subset of rows starts at the first value and goes up to, but does not include, the second value. Again, the up-to-but-not-including takes a bit of getting used to, but the rule is that the difference between the upper and lower bounds is the number of values in the slice.</p>
 <p>One thing that we can't do with this syntax is directly ask for the data from a single row:</p>
 <pre class="sourceCode python"><code class="sourceCode python">data[<span class="dv">1</span>]</code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- KeyError Traceback (most recent call last) <ipython-input-10-c805864c0d75> in <module>() ----&gt; 1 data[1]</p>
-<p>/usr/lib/python2.7/dist-packages/pandas/core/frame.pyc in <strong>getitem</strong>(self, key) 2001 # get column 2002 if self.columns.is_unique: -&gt; 2003 return self._get_item_cache(key) 2004 2005 # duplicate columns</p>
-<p>/usr/lib/python2.7/dist-packages/pandas/core/generic.pyc in _get_item_cache(self, item) 665 return cache[item] 666 except Exception: --&gt; 667 values = self._data.get(item) 668 res = self._box_item_values(item, values) 669 cache[item] = res</p>
-<p>/usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in get(self, item) 1653 def get(self, item): 1654 if self.items.is_unique: -&gt; 1655 _, block = self._find_block(item) 1656 return block.get(item) 1657 else:</p>
-<p>/usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _find_block(self, item) 1933 1934 def _find_block(self, item): -&gt; 1935 self._check_have(item) 1936 for i, block in enumerate(self.blocks): 1937 if item in block:</p>
-<p>/usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _check_have(self, item) 1940 def _check_have(self, item): 1941 if item not in self.items: -&gt; 1942 raise KeyError('no item named %s' % com.pprint_thing(item)) 1943 1944 def reindex_axis(self, new_axis, method=None, axis=0, copy=True):</p>
-<p>KeyError: u'no item named 1' <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+&lt;ipython-input-10-c805864c0d75&gt; in &lt;module&gt;()
+----&gt; 1 data[1]
+
+/usr/lib/python2.7/dist-packages/pandas/core/frame.pyc in __getitem__(self, key)
+   2001             # get column
+   2002             if self.columns.is_unique:
+-&gt; 2003                 return self._get_item_cache(key)
+   2004 
+   2005             # duplicate columns
+
+/usr/lib/python2.7/dist-packages/pandas/core/generic.pyc in _get_item_cache(self, item)
+    665             return cache[item]
+    666         except Exception:
+--&gt; 667             values = self._data.get(item)
+    668             res = self._box_item_values(item, values)
+    669             cache[item] = res
+
+/usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in get(self, item)
+   1653     def get(self, item):
+   1654         if self.items.is_unique:
+-&gt; 1655             _, block = self._find_block(item)
+   1656             return block.get(item)
+   1657         else:
+
+/usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _find_block(self, item)
+   1933 
+   1934     def _find_block(self, item):
+-&gt; 1935         self._check_have(item)
+   1936         for i, block in enumerate(self.blocks):
+   1937             if item in block:
+
+/usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _check_have(self, item)
+   1940     def _check_have(self, item):
+   1941         if item not in self.items:
+-&gt; 1942             raise KeyError(&#39;no item named %s&#39; % com.pprint_thing(item))
+   1943 
+   1944     def reindex_axis(self, new_axis, method=None, axis=0, copy=True):
+
+KeyError: u&#39;no item named 1&#39;</code></pre>
 <p>This is because there are several things that we could mean by <code>data[1]</code> so if we want a single row we can either take a slice that returns a single row:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> data[<span class="dv">1</span>:<span class="dv">2</span>]</code></pre>
 <pre class="output"><code>   year  temperature  rainfall  mosquitos

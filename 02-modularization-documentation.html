@@ -261,94 +261,36 @@ final = fahr_to_celsius(original)</code></pre>
 <h4 id="call-stack-after-end">Call Stack After End</h4>
 <p>This final stack frame is always there; it holds the variables we defined outside the functions in our code. What it doesn't hold is the variables that were in the other stack frames. If we try to get the value of <code>tempF</code> or <code>tempC</code> after our functions have finished running, Python tells us that there's no such thing:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> tempC</code></pre>
-<div class="out">
-<pre class='err'><code>---------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-14-3054d7679e45> in <module>()
-----> 1 print tempC
+<pre class="output"><code>NameError                                 Traceback (most recent call last)
+&lt;ipython-input-14-3054d7679e45&gt; in &lt;module&gt;()
+----&gt; 1 print tempC
 
-NameError: name 'tempC' is not defined
-~~~
+NameError: name &#39;tempC&#39; is not defined</code></pre>
+<p>The reason for this is encapsulation, and it's one of the key to writing correct, comprehensible programs. A function's job is to turn several operations into one so that we can think about a single function call instead of a dozen or a hundred statements each time we want to do something. That only works if functions don't interfere with each other by potentially changing the same variables; if they do, we have to pay attention to the details once again, which quickly overloads our short-term memory.</p>
+<h2 id="testing-functions">Testing Functions</h2>
+<p>Once we start putting things into functions so that we can re-use them, we need to start testing that those functions are working correctly. The most basic thing we can do is some informal testing to make sure the function is doing what it is supposed to do. To see how to do this, let's write a function to center the values in a dataset prior to conducting statistical analysis. Centering means setting the mean of each variable to be the same value, typically zero.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> center(data):
+    <span class="kw">return</span> data - data.mean()</code></pre>
+<p>We could test this on our actual data, but since we don't know what the values ought to be, it will be hard to tell if the result was correct. Instead, let's create a made up data frame where we know what the result should look like.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> pandas <span class="ch">as</span> pd
 
-
-The reason for this is encapsulation,
-and it's one of the key to writing correct, comprehensible programs.
-A function's job is to turn several operations into one so that we can think about
-a single function call instead of a dozen or a hundred statements each time we want to do something.
-That only works if functions don't interfere with each other by potentially changing the same variables;
-if they do, we have to pay attention to the details once again,
-which quickly overloads our short-term memory.
-
-## Testing Functions
-
-
-Once we start putting things into functions so that we can re-use them,
-we need to start testing that those functions are working correctly.
-The most basic thing we can do is some informal testing to make sure the function is doing what it is supposed to do.
-To see how to do this, let's write a function to center the values in a dataset prior to conducting statistical analysis. 
-Centering means setting the mean of each variable to be the same value, typically zero.
-
-
-~~~ {.python}
-def center(data):
-    return data - data.mean()
-~~~
-
-
-We could test this on our actual data,
-but since we don't know what the values ought to be,
-it will be hard to tell if the result was correct.
-Instead, let's create a made up data frame where we know what the result should look like.
-
-
-~~~ {.python}
-import pandas as pd
-
-test_data = pd.DataFrame([[1, 1], [1, 2]])
-print test_data
-~~~
-
-~~~ {.output}
-   0  1
+test_data = pd.DataFrame([[<span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">2</span>]])
+<span class="dt">print</span> test_data</code></pre>
+<pre class="output"><code>   0  1
 0  1  1
 1  1  2
-
-~~~
-
-
-Now that we've made some test data we need to figure out what we think the result should be
-and we need to do this *before* we run the test.
-This is important because we are biased to believe that any result we get back is correct,
-and we want to avoid that bias.
-This also helps make sure that we are confident in what we want the code to do.
-So, what should the result of running `center(data)` be?
-
-OK, let's go ahead and run the function.
-
-
-~~~ {.python}
-print center(test_data)
-~~~
-
-~~~ {.output}
-   0    1
+</code></pre>
+<p>Now that we've made some test data we need to figure out what we think the result should be and we need to do this <em>before</em> we run the test. This is important because we are biased to believe that any result we get back is correct, and we want to avoid that bias. This also helps make sure that we are confident in what we want the code to do. So, what should the result of running <code>center(data)</code> be?</p>
+<p>OK, let's go ahead and run the function.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> center(test_data)</code></pre>
+<pre class="output"><code>   0    1
 0  0 -0.5
 1  0  0.5
-
-~~~
-
-
-That looks right,
-so let's try `center` on our real data:
-
-
-~~~ {.python}
-data = pd.read_csv('A2_mosquito_data.csv')
-print center(data)
-~~~
-
-~~~ {.output}
-    year  temperature    rainfall  mosquitos
+</code></pre>
+<p>That looks right, so let's try <code>center</code> on our real data:</p>
+<pre class="sourceCode python"><code class="sourceCode python">data = pd.read_csv(<span class="st">&#39;A2_mosquito_data.csv&#39;</span>)
+<span class="dt">print</span> center(data)</code></pre>
+<pre class="output"><code>    year  temperature    rainfall  mosquitos
 0    -25     1.607843   -7.039216  -5.235294
 1    -24   -10.392157   19.960784   8.764706
 2    -23     8.607843   23.960784  21.764706
@@ -400,25 +342,15 @@ print center(data)
 48    23    -7.392157   -9.039216  -9.235294
 49    24     5.607843    7.960784   1.764706
 50    25     6.607843  -80.039216 -56.235294
-
-~~~
-
-
-It's hard to tell from the default output whether the result is correct,
-but there are a few simple tests that will reassure us:
-
-
-~~~ {.python}
-print 'original mean:'
-print data.mean()
+</code></pre>
+<p>It's hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> <span class="st">&#39;original mean:&#39;</span>
+<span class="dt">print</span> data.mean()
 centered = center(data)
-print
-print 'mean of centered data:'
-centered.mean()
-~~~
-
-~~~ {.output}
-original mean:
+<span class="dt">print</span>
+<span class="dt">print</span> <span class="st">&#39;mean of centered data:&#39;</span>
+centered.mean()</code></pre>
+<pre class="output"><code>original mean:
 year           1985.000000
 temperature      80.392157
 rainfall        207.039216
@@ -426,9 +358,11 @@ mosquitos       185.235294
 dtype: float64
 
 mean of centered data:
-</code></pre>
-<pre class='out'>
-<p><code>year 0.000000e+00 temperature 1.393221e-15 rainfall 6.687461e-15 mosquitos -1.337492e-14 dtype: float64 <sub>~</sub></p>
+&lt;/code&gt;&lt;/pre&gt;&lt;pre class=&#39;out&#39;&gt;&lt;code&gt;year           0.000000e+00
+temperature    1.393221e-15
+rainfall       6.687461e-15
+mosquitos     -1.337492e-14
+dtype: float64</code></pre>
 <p>The mean of the centered data is very close to zero; it's not quite zero because of floating point precision issues. We can even go further and check that the standard deviation hasn't changed (which it shouldn't if we've just centered the data):</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> <span class="st">&#39;std dev before and after:&#39;</span>
 <span class="dt">print</span> data.std()

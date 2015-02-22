@@ -50,10 +50,16 @@ total = <span class="fl">0.0</span>
     <span class="kw">assert</span> n &gt;= <span class="fl">0.0</span>, <span class="st">&#39;Data should only contain positive values&#39;</span>
     total += n
 <span class="dt">print</span> <span class="st">&#39;total is:&#39;</span>, total</code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- AssertionError Traceback (most recent call last) <ipython-input-1-33d87ea29ae4> in <module>() 2 total = 0.0 3 for n in numbers: ----&gt; 4 assert n &gt;= 0.0, 'Data should only contain positive values' 5 total += n 6 print 'total is:', total</p>
-<p>AssertionError: Data should only contain positive values <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-1-33d87ea29ae4&gt; in &lt;module&gt;()
+      2 total = 0.0
+      3 for n in numbers:
+----&gt; 4     assert n &gt;= 0.0, &#39;Data should only contain positive values&#39;
+      5     total += n
+      6 print &#39;total is:&#39;, total
+
+AssertionError: Data should only contain positive values</code></pre>
 <p>Programs like the Firefox browser are littered with assertions: 10-20% of the code they contain are there to check that the other 80-90% are working correctly. Broadly speaking, assertions fall into three categories:</p>
 <ul>
 <li>A <strong>precondition</strong> is something that must be true at the start of a function in order for it to work correctly.</li>
@@ -82,28 +88,52 @@ total = <span class="fl">0.0</span>
     <span class="kw">return</span> (<span class="dv">0</span>, <span class="dv">0</span>, upper_x, upper_y)</code></pre>
 <p>The preconditions on lines 2, 4, and 5 catch invalid inputs:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> normalize_rectangle( (<span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>) ) <span class="co"># missing the fourth coordinate</span></code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- AssertionError Traceback (most recent call last) <ipython-input-22-3a97b1dcab70> in <module>() ----&gt; 1 print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate</p>
-<p><ipython-input-21-fdb49ef456c2> in normalize_rectangle(rect) 1 def normalize_rectangle(rect): ----&gt; 2 assert len(rect) == 4, 'Rectangles must contain 4 coordinates' 3 x0, y0, x1, y1 = rect 4 assert x0 &lt; x1, 'Invalid X coordinates' 5 assert y0 &lt; y1, 'Invalid Y coordinates'</p>
-<p>AssertionError: Rectangles must contain 4 coordinates <sub>~</sub></p>
+<pre class="output"><code>--------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-22-3a97b1dcab70&gt; in &lt;module&gt;()
+----&gt; 1 print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate
+
+&lt;ipython-input-21-fdb49ef456c2&gt; in normalize_rectangle(rect)
+      1 def normalize_rectangle(rect):
+----&gt; 2     assert len(rect) == 4, &#39;Rectangles must contain 4 coordinates&#39;
+      3     x0, y0, x1, y1 = rect
+      4     assert x0 &lt; x1, &#39;Invalid X coordinates&#39;
+      5     assert y0 &lt; y1, &#39;Invalid Y coordinates&#39;
+
+AssertionError: Rectangles must contain 4 coordinates</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> normalize_rectangle( (<span class="fl">4.0</span>, <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fl">5.0</span>) ) <span class="co"># X axis inverted</span></code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- AssertionError Traceback (most recent call last) <ipython-input-23-f05ae7878a45> in <module>() ----&gt; 1 print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted</p>
-<p><ipython-input-21-fdb49ef456c2> in normalize_rectangle(rect) 2 assert len(rect) == 4, 'Rectangles must contain 4 coordinates' 3 x0, y0, x1, y1 = rect ----&gt; 4 assert x0 &lt; x1, 'Invalid X coordinates' 5 assert y0 &lt; y1, 'Invalid Y coordinates' 6</p>
-<p>AssertionError: Invalid X coordinates <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-23-f05ae7878a45&gt; in &lt;module&gt;()
+----&gt; 1 print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted
+
+&lt;ipython-input-21-fdb49ef456c2&gt; in normalize_rectangle(rect)
+      2     assert len(rect) == 4, &#39;Rectangles must contain 4 coordinates&#39;
+      3     x0, y0, x1, y1 = rect
+----&gt; 4     assert x0 &lt; x1, &#39;Invalid X coordinates&#39;
+      5     assert y0 &lt; y1, &#39;Invalid Y coordinates&#39;
+      6 
+
+AssertionError: Invalid X coordinates</code></pre>
 <p>The post-conditions help us catch bugs by telling us when our calculations cannot have been correct. For example, if we normalize a rectangle that is taller than it is wide everything seems OK:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> normalize_rectangle( (<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">5.0</span>) )</code></pre>
 <pre class="output"><code>(0, 0, 0.2, 1.0)
 </code></pre>
 <p>but if we normalize one that's wider than it is tall, the assertion is triggered:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> normalize_rectangle( (<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">5.0</span>, <span class="fl">1.0</span>) )</code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- AssertionError Traceback (most recent call last) <ipython-input-27-5f0ef7954aeb> in <module>() ----&gt; 1 print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )</p>
-<p><ipython-input-21-fdb49ef456c2> in normalize_rectangle(rect) 15 16 assert 0 &lt; upper_x &lt;= 1.0, 'Calculated upper X coordinate invalid' ---&gt; 17 assert 0 &lt; upper_y &lt;= 1.0, 'Calculated upper Y coordinate invalid' 18 19 return (0, 0, upper_x, upper_y)</p>
-<p>AssertionError: Calculated upper Y coordinate invalid <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-27-5f0ef7954aeb&gt; in &lt;module&gt;()
+----&gt; 1 print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )
+
+&lt;ipython-input-21-fdb49ef456c2&gt; in normalize_rectangle(rect)
+     15 
+     16     assert 0 &lt; upper_x &lt;= 1.0, &#39;Calculated upper X coordinate invalid&#39;
+---&gt; 17     assert 0 &lt; upper_y &lt;= 1.0, &#39;Calculated upper Y coordinate invalid&#39;
+     18 
+     19     return (0, 0, upper_x, upper_y)
+
+AssertionError: Calculated upper Y coordinate invalid</code></pre>
 <p>Re-reading our function, we realize that line 10 should divide <code>dy</code> by <code>dx</code> rather than <code>dx</code> by <code>dy</code>. (You can display line numbers by typing Ctrl-M, then L.) If we had left out the assertion at the end of the function, we would have created and returned something that looked like a valid answer, but wasn't; detecting and debugging that would almost certainly have taken more time in the long run than writing the assertion.</p>
 <p>But assertions aren't just about catching errors: they also help people understand programs. Each assertion gives the person reading the program a chance to check (consciously or otherwise) that their understanding matches what the code is doing.</p>
 <p>Most good programmers follow two rules when adding assertions to their code. The first is, &quot;<strong>fail early, fail often</strong>&quot;. The greater the distance between when and where an error occurs and when it's noticed, the harder the error will be to debug, so good code catches mistakes as early as possible.</p>
@@ -135,16 +165,21 @@ total = <span class="fl">0.0</span>
 <p>We join the normal case and the error-handling code using the keywords <code>try</code> and <code>except</code>. These work together like <code>if</code> and <code>else</code>: the statements under the <code>try</code> are what should happen if everything works, while the statements under <code>except</code> are what the program should do if something goes wrong.</p>
 <p>We have actually seen exceptions before without knowing it, since by default, when an exception occurs, Python prints it out and halts our program. For example, trying to open a nonexistent file triggers a type of exception called an <code>IOError</code>, while an out-of-bounds index to a list triggers an <code>IndexError</code>:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="dt">open</span>(<span class="st">&#39;nonexistent-file.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- IOError Traceback (most recent call last) <ipython-input-13-58cbde3dd63c> in <module>() ----&gt; 1 open('nonexistent-file.txt', 'r')</p>
-<p>IOError: [Errno 2] No such file or directory: 'nonexistent-file.txt' <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+IOError                                   Traceback (most recent call last)
+&lt;ipython-input-13-58cbde3dd63c&gt; in &lt;module&gt;()
+----&gt; 1 open(&#39;nonexistent-file.txt&#39;, &#39;r&#39;)
+
+IOError: [Errno 2] No such file or directory: &#39;nonexistent-file.txt&#39;</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python">values = [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>]
 <span class="dt">print</span> values[<span class="dv">999</span>]</code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- IndexError Traceback (most recent call last) <ipython-input-14-7fed13afc650> in <module>() 1 values = [0, 1, 2] ----&gt; 2 print values[999]</p>
-<p>IndexError: list index out of range <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+&lt;ipython-input-14-7fed13afc650&gt; in &lt;module&gt;()
+      1 values = [0, 1, 2]
+----&gt; 2 print values[999]
+
+IndexError: list index out of range</code></pre>
 <p>We can use <code>try</code> and <code>except</code> to deal with these errors ourselves if we don't want the program simply to fall over:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">try</span>:
     reader = <span class="dt">open</span>(<span class="st">&#39;nonexistent-file.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)
@@ -258,18 +293,26 @@ except ZeroDivisionError:
 <span class="kw">assert</span> rectangle_area([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]) == <span class="fl">1.0</span>
 <span class="kw">assert</span> rectangle_area([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>]) == <span class="fl">9.0</span>
 <span class="kw">assert</span> rectangle_area([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>]) == <span class="fl">24.0</span></code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- AssertionError Traceback (most recent call last) <ipython-input-16-ebf7f5f1c120> in <module>() 3 assert rectangle_area([0, 0, 1, 1]) == 1.0 4 assert rectangle_area([1, 1, 4, 4]) == 9.0 ----&gt; 5 assert rectangle_area([0, 1, 4, 7]) == 24.0</p>
-<p>AssertionError: <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-16-ebf7f5f1c120&gt; in &lt;module&gt;()
+      3 assert rectangle_area([0, 0, 1, 1]) == 1.0
+      4 assert rectangle_area([1, 1, 4, 4]) == 9.0
+----&gt; 5 assert rectangle_area([0, 1, 4, 7]) == 24.0
+
+AssertionError: </code></pre>
 <p>This result is used, in the sense that we know something's wrong, but look closely at what happens if we run the tests in a different order:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">assert</span> rectangle_area([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>]) == <span class="fl">24.0</span>
 <span class="kw">assert</span> rectangle_area([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>]) == <span class="fl">9.0</span>
 <span class="kw">assert</span> rectangle_area([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]) == <span class="fl">1.0</span></code></pre>
-<div class="out">
-<pre class='err'>
-<p><code>--------------------------------------------------------------------------- AssertionError Traceback (most recent call last) <ipython-input-17-548f3f32c981> in <module>() ----&gt; 1 assert rectangle_area([0, 1, 4, 7]) == 24.0 2 assert rectangle_area([1, 1, 4, 4]) == 9.0 3 assert rectangle_area([0, 0, 1, 1]) == 1.0</p>
-<p>AssertionError: <sub>~</sub></p>
+<pre class="output"><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-17-548f3f32c981&gt; in &lt;module&gt;()
+----&gt; 1 assert rectangle_area([0, 1, 4, 7]) == 24.0
+      2 assert rectangle_area([1, 1, 4, 4]) == 9.0
+      3 assert rectangle_area([0, 0, 1, 1]) == 1.0
+
+AssertionError: </code></pre>
 <p>Python halts at the first failed assertion, so the second and third tests aren't run at all. It would be more helpful if we could get data from all of our tests every time they're run, since the more information we have, the faster we're likely to be able to track down bugs. It would also be helpful to have some kind of summary report: if our test suite includes thirty or forty tests (as it well might for a complex function or library that's widely used), we'd like to know how many passed or failed.</p>
 <p>Here's a different approach. First, let's put each test in a function with a meaningful name:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> test_unit_square():

@@ -444,7 +444,7 @@ Python tells us that there's no such thing:
 print tempC
 ~~~
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+~~~ {.output}
 NameError                                 Traceback (most recent call last)
 <ipython-input-14-3054d7679e45> in <module>()
 ----> 1 print tempC

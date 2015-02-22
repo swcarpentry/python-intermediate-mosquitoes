@@ -256,7 +256,8 @@ data from a single row:
 data[1]
 ~~~
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+~~~ {.output}
+---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
 <ipython-input-10-c805864c0d75> in <module>()
 ----> 1 data[1]
