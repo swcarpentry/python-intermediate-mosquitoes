@@ -178,8 +178,7 @@ plt.plot(predicted, data[<span class="st">&#39;mosquitos&#39;</span>], <span cla
 min_mosquitos, max_mosquitos = <span class="dt">min</span>(data[<span class="st">&#39;mosquitos&#39;</span>]), <span class="dt">max</span>(data[<span class="st">&#39;mosquitos&#39;</span>])
 plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], <span class="st">&#39;k-&#39;</span>)</code></pre>
 <pre class="output"><code>[&lt;matplotlib.lines.Line2D at 0x56eb950&gt;]</code></pre>
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_19_1.png">
-</div>
+<p><img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_19_1.png"></p>
 <p>OK, great. So putting this all together we now have a piece of code that imports the modules we need, loads the data into memory, fits a regression to the data, and stores the parameters and fit of data.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> pandas <span class="ch">as</span> pd
 <span class="ch">import</span> statsmodels.api <span class="ch">as</span> sm
@@ -202,8 +201,7 @@ rainfall        0.696717
 dtype: float64
 R^2 =  0.996966873691
 </code></pre>
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_21_1.png">
-</div>
+<p><img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_21_1.png"></p>
 <h2 id="functions">Functions</h2>
 <p>The next thing we need to do is loop over all of the possible data files, but in order to do that we're going to need to grow our code some more. Since our brain can only easily hold 5-7 pieces of information at once, and our code already has more than that many pieces, we need to start breaking our code into manageable sized chunks. This will let us read and understand the code more easily and make it easier to reuse pieces of our code. We'll do this using functions.</p>
 <p>Functions in Python take the general form</p>
@@ -477,8 +475,7 @@ temperature     0.871943
 rainfall        0.696717
 dtype: float64
 </code></pre>
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_64_1.png">
-</div>
+<p><img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_64_1.png"></p>
 <p>Now we want to loop over all of the possible data files, and to do that we need to know their names. If we only had a dozen files we could write them all down, but if we have hundreds of files or the filenames change then that won't really work. Fortunately Python has a built in library to help us find the files we want to work with called <code>glob</code>.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> glob
 
