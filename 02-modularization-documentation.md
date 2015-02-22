@@ -258,7 +258,7 @@ plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
 [<matplotlib.lines.Line2D at 0x56eb950>]
 ~~~
 
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_19_1.png">
+![](fig/02-modularization-documentation_19_1.png)
 
 
 OK, great.
@@ -294,7 +294,7 @@ R^2 =  0.996966873691
 
 ~~~
 
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_21_1.png">
+![](fig/02-modularization-documentation_21_1.png)
 
 ## Functions
 
@@ -801,7 +801,7 @@ dtype: float64
 
 ~~~
 
-<img src="../../intermediate/python/02-modularization-documentation_files/intermediate/python/02-modularization-documentation_64_1.png">
+![](fig/02-modularization-documentation_64_1.png)
 
 
 Now we want to loop over all of the possible data files,
