@@ -29,13 +29,13 @@ first file look like:
 
 ~~~
 year,temperature,rainfall,mosquitos
-2001,87,222,198
-2002,72,103,105
-2003,77,176,166
+2001,80,157,150
+2002,85,252,2177
+2003,86,154,153
 ~~~
 
 > ## Learning Objectives {.objectives}
-> 
+>
 > * Conduct variable assignment, looping, and conditionals in Python
 > * Use an external Python library
 > * Read tabular data from a file
@@ -58,21 +58,21 @@ We can now use Pandas to read our data file.
 
 
 ~~~ {.python}
-pandas.read_csv('mosquito_data_A1.csv')
+pandas.read_csv('A1_mosquito_data.csv')
 ~~~
 
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
-0  2001           87       222        198
-1  2002           72       103        105
-2  2003           77       176        166
-3  2004           89       236        210
-4  2005           88       283        242
-5  2006           89       151        147
-6  2007           71       121        117
-7  2008           88       267        232
-8  2009           85       211        191
-9  2010           75       101        106
+0  2001           80       157        150
+1  2002           85       252        217
+2  2003           86       154        153
+3  2004           87       159        158
+4  2005           74       292        243
+5  2006           75       283        237
+6  2007           80       214        190
+7  2008           85       197        181
+8  2009           74       231        200
+9  2010           74       207        184
 ~~~
 
 
@@ -92,7 +92,7 @@ like this:
 
 
 ~~~ {.python}
-data = pandas.read_csv('mosquito_data_A1.csv')
+data = pandas.read_csv('A1_mosquito_data.csv')
 ~~~
 
 
@@ -107,16 +107,16 @@ print data
 
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
-0  2001           87       222        198
-1  2002           72       103        105
-2  2003           77       176        166
-3  2004           89       236        210
-4  2005           88       283        242
-5  2006           89       151        147
-6  2007           71       121        117
-7  2008           88       267        232
-8  2009           85       211        191
-9  2010           75       101        106
+0  2001           80       157        150
+1  2002           85       252        217
+2  2003           86       154        153
+3  2004           87       159        158
+4  2005           74       292        243
+5  2006           75       283        237
+6  2007           80       214        190
+7  2008           85       197        181
+8  2009           74       231        200
+9  2010           74       207        184
 
 ~~~
 
@@ -131,16 +131,16 @@ data
 
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
-0  2001           87       222        198
-1  2002           72       103        105
-2  2003           77       176        166
-3  2004           89       236        210
-4  2005           88       283        242
-5  2006           89       151        147
-6  2007           71       121        117
-7  2008           88       267        232
-8  2009           85       211        191
-9  2010           75       101        106
+0  2001           80       157        150
+1  2002           85       252        217
+2  2003           86       154        153
+3  2004           87       159        158
+4  2005           74       292        243
+5  2006           75       283        237
+6  2007           80       214        190
+7  2008           85       197        181
+8  2009           74       231        200
+9  2010           74       207        184
 ~~~
 
 
@@ -202,16 +202,16 @@ print data[['rainfall', 'temperature']]
 
 ~~~ {.output}
    rainfall  temperature
-0       222           87
-1       103           72
-2       176           77
-3       236           89
-4       283           88
-5       151           89
-6       121           71
-7       267           88
-8       211           85
-9       101           75
+0       157           80
+1       252           85
+2       154           86
+3       159           87
+4       292           74
+5       283           75
+6       214           80
+7       197           85
+8       231           74
+9       207           74
 
 ~~~
 
@@ -226,8 +226,8 @@ print data[0:2]
 
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
-0  2001           87       222        198
-1  2002           72       103        105
+0  2001           80       157        150
+1  2002           85       252        217
 
 ~~~
 
@@ -266,7 +266,7 @@ KeyError                                  Traceback (most recent call last)
    2001             # get column
    2002             if self.columns.is_unique:
 -> 2003                 return self._get_item_cache(key)
-   2004 
+   2004
    2005             # duplicate columns
 
 /usr/lib/python2.7/dist-packages/pandas/core/generic.pyc in _get_item_cache(self, item)
@@ -284,7 +284,7 @@ KeyError                                  Traceback (most recent call last)
    1657         else:
 
 /usr/lib/python2.7/dist-packages/pandas/core/internals.pyc in _find_block(self, item)
-   1933 
+   1933
    1934     def _find_block(self, item):
 -> 1935         self._check_have(item)
    1936         for i, block in enumerate(self.blocks):
@@ -294,7 +294,7 @@ KeyError                                  Traceback (most recent call last)
    1940     def _check_have(self, item):
    1941         if item not in self.items:
 -> 1942             raise KeyError('no item named %s' % com.pprint_thing(item))
-   1943 
+   1943
    1944     def reindex_axis(self, new_axis, method=None, axis=0, copy=True):
 
 KeyError: u'no item named 1'
@@ -312,7 +312,7 @@ print data[1:2]
 
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
-1  2002           72       103        105
+1  2002           85       252        217
 
 ~~~
 
@@ -327,9 +327,9 @@ print data.iloc[1]
 
 ~~~ {.output}
 year           2002
-temperature      72
-rainfall        103
-mosquitos       105
+temperature      85
+rainfall        252
+mosquitos       217
 Name: 1, dtype: int64
 
 ~~~
@@ -344,8 +344,8 @@ print data.iloc[1:3]
 
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
-1  2002           72       103        105
-2  2003           77       176        166
+1  2002           85       252        217
+2  2003           86       154        153
 
 ~~~
 
@@ -358,11 +358,11 @@ print data['temperature'][data['year'] > 2005]
 ~~~
 
 ~~~ {.output}
-5    89
-6    71
-7    88
-8    85
-9    75
+5    75
+6    80
+7    85
+8    74
+9    74
 Name: temperature, dtype: int64
 
 ~~~
@@ -379,9 +379,9 @@ print data.mean()
 
 ~~~ {.output}
 year           2005.5
-temperature      82.1
-rainfall        187.1
-mosquitos       171.4
+temperature      80.0
+rainfall        214.6
+mosquitos       191.3
 dtype: float64
 
 ~~~
@@ -396,9 +396,9 @@ print data.max()
 
 ~~~ {.output}
 year           2010
-temperature      89
-rainfall        283
-mosquitos       242
+temperature      87
+rainfall        292
+mosquitos       243
 dtype: int64
 
 ~~~
@@ -409,7 +409,7 @@ print data['temperature'].min()
 ~~~
 
 ~~~ {.output}
-71
+74
 
 ~~~
 
@@ -419,13 +419,13 @@ print data['mosquitos'][1:3].std()
 ~~~
 
 ~~~ {.output}
-43.1335136524
+45.2548339959
 
 ~~~
 
 > ## Challenge {.challenge}
-> 
-> Import the data from `mosquito_data_A2.csv`, create a new variable
+>
+> Import the data from `A2_mosquito_data.csv`, create a new variable
 > that holds a data frame with only the weather data, and print the
 > means and standard deviations for the weather variables.
 
@@ -453,16 +453,16 @@ for temp_in_f in temps:
 ~~~
 
 ~~~ {.output}
-30.5555555556
-22.2222222222
-25.0
-31.6666666667
-31.1111111111
-31.6666666667
-21.6666666667
-31.1111111111
+26.6666666667
 29.4444444444
+30.0
+30.5555555556
+23.3333333333
 23.8888888889
+26.6666666667
+29.4444444444
+23.3333333333
+23.3333333333
 
 ~~~
 
@@ -525,12 +525,12 @@ temperatures that are greater than 80 degrees we would use:
 
 ~~~ {.python}
 temp = data['temperature'][0]
-if temp > 80:
-    print "The temperature is greater than 80"
+if temp > 75:
+    print "The temperature is greater than 75"
 ~~~
 
 ~~~ {.output}
-The temperature is greater than 80
+The temperature is greater than 75
 
 ~~~
 
@@ -543,22 +543,22 @@ Additional conditions can be handled using `elif` and `else`:
 
 ~~~ {.python}
 temp = data['temperature'][0]
-if temp < 87:
-    print "The temperature is < 87"
-elif temp > 87:
-    print "The temperature is > 87"
+if temp < 80:
+    print "The temperature is < 80"
+elif temp > 80:
+    print "The temperature is > 80"
 else:
-    print " The temperature is equal to 87"
+    print " The temperature is equal to 80"
 ~~~
 
 ~~~ {.output}
- The temperature is equal to 87
+ The temperature is equal to 80
 
 ~~~
 
 > ## Challenge {.challenge}
-> 
-> Import the data from `mosquito_data_A2.csv`, determine the mean
+>
+> Import the data from `A2_mosquito_data.csv`, determine the mean
 > temperate, and loop over the temperature values. For each value
 > print out whether it is greater than the mean, less than the mean,
 > or equal to the mean.
@@ -601,12 +601,12 @@ with since it has a longer time-series.
 
 
 ~~~ {.python}
-data = pandas.read_csv('mosquito_data_A2.csv')
+data = pandas.read_csv('A2_mosquito_data.csv')
 plt.plot(data['year'], data['mosquitos'])
 ~~~
 
 ~~~ {.output}
-[<matplotlib.lines.Line2D at 0x4a88590>]
+[<matplotlib.lines.Line2D at 0x7f0dc3da18d0>]
 ~~~
 
 ![Number of mosquitoes through time](fig/01-intro-python_66_1.png)
@@ -629,15 +629,14 @@ plt.subplot(1, 2, 2)
 plt.plot(data['year'], data['rainfall'], 'bs-')
 plt.xlabel('Year')
 plt.ylabel('Rain Fall')
-plt.show()
 ~~~
 
 ![Temperature and rainfall through time](fig/01-intro-python_68_0.png)
 
 
 > ## Challenge {.challenge}
-> 
-> Using the data in `mosquito_data_A2.csv` plot the relationship
+>
+> Using the data in `A2_mosquito_data.csv` plot the relationship
 > between the number of mosquitos and temperature and the number of
 > mosquitos and rainfall.
 
