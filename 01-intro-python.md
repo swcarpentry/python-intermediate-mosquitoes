@@ -58,7 +58,7 @@ We can now use Pandas to read our data file.
 
 
 ~~~ {.python}
-pandas.read_csv('mosquito_data_A1.csv')
+pandas.read_csv('A1_mosquito_data.csv')
 ~~~
 
 ~~~ {.output}
@@ -92,7 +92,7 @@ like this:
 
 
 ~~~ {.python}
-data = pandas.read_csv('mosquito_data_A1.csv')
+data = pandas.read_csv('A1_mosquito_data.csv')
 ~~~
 
 
@@ -425,7 +425,7 @@ print data['mosquitos'][1:3].std()
 
 > ## Challenge {.challenge}
 > 
-> Import the data from `mosquito_data_A2.csv`, create a new variable
+> Import the data from `A2_mosquito_data.csv`, create a new variable
 > that holds a data frame with only the weather data, and print the
 > means and standard deviations for the weather variables.
 
@@ -558,7 +558,7 @@ else:
 
 > ## Challenge {.challenge}
 > 
-> Import the data from `mosquito_data_A2.csv`, determine the mean
+> Import the data from `A2_mosquito_data.csv`, determine the mean
 > temperate, and loop over the temperature values. For each value
 > print out whether it is greater than the mean, less than the mean,
 > or equal to the mean.
@@ -601,7 +601,7 @@ with since it has a longer time-series.
 
 
 ~~~ {.python}
-data = pandas.read_csv('mosquito_data_A2.csv')
+data = pandas.read_csv('A2_mosquito_data.csv')
 plt.plot(data['year'], data['mosquitos'])
 ~~~
 
@@ -637,7 +637,7 @@ plt.show()
 
 > ## Challenge {.challenge}
 > 
-> Using the data in `mosquito_data_A2.csv` plot the relationship
+> Using the data in `A2_mosquito_data.csv` plot the relationship
 > between the number of mosquitos and temperature and the number of
 > mosquitos and rainfall.
 
