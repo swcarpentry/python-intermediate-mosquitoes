@@ -2,10 +2,16 @@
 layout: page
 title: Intermediate Python
 subtitle: Analyzing Mosquito Data
+minutes: 60
 ---
 
-## Introduction
-
+> ## Learning Objectives {.objectives}
+>
+> *   Conduct variable assignment, looping, and conditionals in Python
+> *   Use an external Python library
+> *   Read tabular data from a file
+> *   Subset and perform analysis on data
+> *   Display simple graphs
 
 This material assumes that you have programmed before. This first
 lecture provides a quick introduction to programming in Python for
@@ -34,33 +40,20 @@ year,temperature,rainfall,mosquitos
 2003,86,154,153
 ~~~
 
-> ## Learning Objectives {.objectives}
->
-> * Conduct variable assignment, looping, and conditionals in Python
-> * Use an external Python library
-> * Read tabular data from a file
-> * Subset and perform analysis on data
-> * Display simple graphs
-
 ## Loading Data
-
 
 In order to load the data, we need to import a library called Pandas
 that knows how to operate on tables of data.
-
 
 ~~~ {.python}
 import pandas
 ~~~
 
-
 We can now use Pandas to read our data file.
-
 
 ~~~ {.python}
 pandas.read_csv('A1_mosquito_data.csv')
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 0  2001           80       157        150
@@ -74,7 +67,6 @@ pandas.read_csv('A1_mosquito_data.csv')
 8  2009           74       231        200
 9  2010           74       207        184
 ~~~
-
 
 The `read_csv()` function belongs to the `pandas` library. In order
 to run it we need to tell Python that it is part of `pandas` and we
@@ -90,21 +82,17 @@ save it anywhere. To do that, we need to assign the array to a
 variable. In Python we use `=` to assign a new value to a variable
 like this:
 
-
 ~~~ {.python}
 data = pandas.read_csv('A1_mosquito_data.csv')
 ~~~
-
 
 This statement doesn't produce any output because assignment doesn't
 display anything. If we want to check that our data has been loaded,
 we can print the variable's value:
 
-
 ~~~ {.python}
 print data
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 0  2001           80       157        150
@@ -117,18 +105,14 @@ print data
 7  2008           85       197        181
 8  2009           74       231        200
 9  2010           74       207        184
-
 ~~~
-
 
 `print data` tells Python to display the text. Alternatively we
 could just include `data` as the last value in a code cell:
 
-
 ~~~ {.python}
 data
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 0  2001           80       157        150
@@ -142,41 +126,32 @@ data
 8  2009           74       231        200
 9  2010           74       207        184
 ~~~
-
 
 This tells the IPython Notebook to display the `data` object, which
 is why we see a pretty formated table.
 
 ## Manipulating data
 
-
 Once we have imported the data we can start doing things with it.
 First, let's ask what type of thing `data` refers to:
-
 
 ~~~ {.python}
 print type(data)
 ~~~
-
 ~~~ {.output}
 <class 'pandas.core.frame.DataFrame'>
-
 ~~~
-
 
 The data is stored in a data structure called a DataFrame. There are
 other kinds of data structures that are also commonly used in
 scientific computing including Numpy arrays, and Numpy matrices,
 which can be used for doing linear algebra.
 
-
 We can select an individual column of data using its name:
-
 
 ~~~ {.python}
 print data['year']
 ~~~
-
 ~~~ {.output}
 0    2001
 1    2002
@@ -189,17 +164,13 @@ print data['year']
 8    2009
 9    2010
 Name: year, dtype: int64
-
 ~~~
 
-
 Or we can select several columns of data at once:
-
 
 ~~~ {.python}
 print data[['rainfall', 'temperature']]
 ~~~
-
 ~~~ {.output}
    rainfall  temperature
 0       157           80
@@ -212,25 +183,19 @@ print data[['rainfall', 'temperature']]
 7       197           85
 8       231           74
 9       207           74
-
 ~~~
-
 
 We can also select subsets of rows using slicing. Say we just want
 the first two rows of data:
 
-
 ~~~ {.python}
 print data[0:2]
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 0  2001           80       157        150
 1  2002           85       252        217
-
 ~~~
-
 
 There are a couple of important things to note here. First, Python
 indexing starts at zero. In contrast, programming languages like R
@@ -247,7 +212,6 @@ Again, the up-to-but-not-including takes a bit of getting used to,
 but the rule is that the difference between the upper and lower
 bounds is the number of values in the slice.
 
-
 One thing that we can't do with this syntax is directly ask for the
 data from a single row:
 
@@ -255,8 +219,7 @@ data from a single row:
 ~~~ {.python}
 data[1]
 ~~~
-
-~~~ {.output}
+~~~ {.error}
 ---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
 <ipython-input-10-c805864c0d75> in <module>()
@@ -300,63 +263,48 @@ KeyError                                  Traceback (most recent call last)
 KeyError: u'no item named 1'
 ~~~
 
-
 This is because there are several things that we could mean by
 `data[1]` so if we want a single row we can either take a slice that
 returns a single row:
 
-
 ~~~ {.python}
 print data[1:2]
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 1  2002           85       252        217
-
 ~~~
-
 
 or use the `.iloc` method, which stands for "integer location" since
 we are looking up the row based on its integer index.
 
-
 ~~~ {.python}
 print data.iloc[1]
 ~~~
-
 ~~~ {.output}
 year           2002
 temperature      85
 rainfall        252
 mosquitos       217
 Name: 1, dtype: int64
-
 ~~~
 
-
 We can also use this same syntax for getting larger subsets of rows:
-
 
 ~~~ {.python}
 print data.iloc[1:3]
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 1  2002           85       252        217
 2  2003           86       154        153
-
 ~~~
 
-
 We can also subset the data based on the value of other rows:
-
 
 ~~~ {.python}
 print data['temperature'][data['year'] > 2005]
 ~~~
-
 ~~~ {.output}
 5    75
 6    80
@@ -364,63 +312,48 @@ print data['temperature'][data['year'] > 2005]
 8    74
 9    74
 Name: temperature, dtype: int64
-
 ~~~
-
 
 Data frames also know how to perform common mathematical operations
 on their values. If we want to find the average value for each
 variable, we can just ask the data frame for its mean values
 
-
 ~~~ {.python}
 print data.mean()
 ~~~
-
 ~~~ {.output}
 year           2005.5
 temperature      80.0
 rainfall        214.6
 mosquitos       191.3
 dtype: float64
-
 ~~~
 
-
 Data frames have lots of useful methods:
-
 
 ~~~ {.python}
 print data.max()
 ~~~
-
 ~~~ {.output}
 year           2010
 temperature      87
 rainfall        292
 mosquitos       243
 dtype: int64
-
 ~~~
-
 
 ~~~ {.python}
 print data['temperature'].min()
 ~~~
-
 ~~~ {.output}
 74
-
 ~~~
-
 
 ~~~ {.python}
 print data['mosquitos'][1:3].std()
 ~~~
-
 ~~~ {.output}
 45.2548339959
-
 ~~~
 
 > ## Challenge {.challenge}
@@ -430,7 +363,6 @@ print data['mosquitos'][1:3].std()
 > means and standard deviations for the weather variables.
 
 ## Loops
-
 
 Once we have some data we often want to be able to loop over it to
 perform the same operation repeatedly.  A `for` loop in Python takes
@@ -444,14 +376,12 @@ for item in list:
 So if we want to loop over the temperatures and print out there
 values in degrees Celcius (instead of Farenheit) we can use:
 
-
 ~~~ {.python}
 temps = data['temperature']
 for temp_in_f in temps:
     temp_in_c = (temp_in_f - 32) * 5 / 9.0
     print temp_in_c
 ~~~
-
 ~~~ {.output}
 26.6666666667
 29.4444444444
@@ -463,9 +393,7 @@ for temp_in_f in temps:
 29.4444444444
 23.3333333333
 23.3333333333
-
 ~~~
-
 
 That looks good, but why did we use 9.0 instead of 9? The reason is
 that computers store integers and numbers with decimals as different
@@ -474,30 +402,22 @@ subtraction and multiplication work on both as we'd expect, but
 division works differently. If we divide one integer by another, we
 get the quotient without the remainder:
 
-
 ~~~ {.python}
 print '10/3 is:', 10 / 3
 ~~~
-
 ~~~ {.output}
 10/3 is: 3
-
 ~~~
-
 
 If either part of the division is a float, on the other hand, the
 computer creates a floating-point answer:
 
-
 ~~~ {.python}
 print '10/3.0 is:', 10 / 3.0
 ~~~
-
 ~~~ {.output}
 10/3.0 is: 3.33333333333
-
 ~~~
-
 
 The computer does this for historical reasons: integer operations
 were much faster on early machines, and this behavior is actually
@@ -509,12 +429,11 @@ want 5/9 to give us the right answer, we have to write it as 5.0/9,
 
 ## Conditionals
 
-
 The other standard thing we need to know how to do in Python is
 conditionals, or if/then/else statements. In Python the basic syntax
 is:
 
-~~~python
+~~~ {.python}
 if condition:
     do_something
 ~~~
@@ -522,24 +441,19 @@ if condition:
 So if we want to loop over the temperatures and print out only those
 temperatures that are greater than 80 degrees we would use:
 
-
 ~~~ {.python}
 temp = data['temperature'][0]
 if temp > 75:
     print "The temperature is greater than 75"
 ~~~
-
 ~~~ {.output}
 The temperature is greater than 75
-
 ~~~
-
 
 We can also use `==` for equality, `<=` for less than or equal to,
 `>=` for greater than or equal to, and `!=` for not equal to.
 
 Additional conditions can be handled using `elif` and `else`:
-
 
 ~~~ {.python}
 temp = data['temperature'][0]
@@ -550,10 +464,8 @@ elif temp > 80:
 else:
     print " The temperature is equal to 80"
 ~~~
-
 ~~~ {.output}
  The temperature is equal to 80
-
 ~~~
 
 > ## Challenge {.challenge}
@@ -565,7 +477,6 @@ else:
 
 ## Plotting
 
-
 The mathematician Richard Hamming once said, "The purpose of
 computing is insight, not numbers," and the best way to develop
 insight is often to visualize data. The main plotting library in
@@ -573,22 +484,18 @@ Python is `matplotlib`. To get started, let's tell the IPython
 Notebook that we want our plots displayed inline, rather than in a
 separate viewing window:
 
-
 ~~~ {.python}
 %matplotlib inline
 ~~~
-
 
 The `%` at the start of the line signals that this is a command for
 the notebook, rather than a statement in Python. Next, we will
 import the `pyplot` module from `matplotlib`, but since `pyplot` is
 a fairly long name to type repeatedly let's give it an alias.
 
-
 ~~~ {.python}
 from matplotlib import pyplot as plt
 ~~~
-
 
 This import statement shows two new things. First, we can import
 part of a library by using the `from library import submodule`
@@ -599,23 +506,19 @@ Now, let's make a simple plot showing how the number of mosquitos
 varies over time. We'll use the site you've been doing exercises
 with since it has a longer time-series.
 
-
 ~~~ {.python}
 data = pandas.read_csv('A2_mosquito_data.csv')
 plt.plot(data['year'], data['mosquitos'])
 ~~~
-
 ~~~ {.output}
 [<matplotlib.lines.Line2D at 0x7f0dc3da18d0>]
 ~~~
 
 ![Number of mosquitoes through time](fig/01-intro-python_66_1.png)
 
-
 More complicated plots can be created by adding a little additional
 information. Let's say we want to look at how the different weather
 variables vary over time.
-
 
 ~~~ {.python}
 plt.figure(figsize=(10.0, 3.0))
@@ -633,15 +536,13 @@ plt.ylabel('Rain Fall')
 
 ![Temperature and rainfall through time](fig/01-intro-python_68_0.png)
 
-
 > ## Challenge {.challenge}
 >
 > Using the data in `A2_mosquito_data.csv` plot the relationship
 > between the number of mosquitos and temperature and the number of
 > mosquitos and rainfall.
 
-### Key Points
-
+## Key Points
 
 *   Import a library into a program using `import libraryname`.
 *   Use the `pandas` library to work with data tables in Python.
@@ -658,7 +559,6 @@ plt.ylabel('Rain Fall')
     visualizations.
 
 ## Next steps
-
 
 With the requisite Python background out of the way, now we're ready
 to dig in to analyzing our data, and along the way learn how to

@@ -2,26 +2,22 @@
 layout: page
 title: Intermediate Python
 subtitle: Modularization and Documentation
+minutes: 60
 ---
 
-## Modularization and Documentation
-
+> ## Learning Objectives {.objectives}
+>
+> *   Write code for people, not computers
+> *   Break a program into chunks
+> *   Write and use functions in Python
+> *   Write useful documentation
 
 Now that we've covered some of the basic syntax and libraries in Python we can start to tackle our data analysis problem.
 We are interested in understanding the relationship between the weather and the number of mosquitos so that we can plan mosquito control measures.
 Since we want to apply these mosquito control measures at a number of different sites we need to understand how the relationship varies across sites.
 Remember that we have a series of CSV files with each file containing the data for a single location.
 
-## Learning Objectives
-
-
-* Write code for people, not computers
-* Break a program into chunks
-* Write and use functions in Python
-* Write useful documentation
-
 ## Starting small
-
 
 When approaching computational tasks like this one it is typically best to start small,
 check each piece of code as you go,
@@ -33,14 +29,12 @@ then try to figure out all of the different bugs in it.
 Let's start by reading in the data from a single file and conducting a simple regression analysis on it.
 In fact, I would actually start by just importing the data and making sure that everything is coming in OK.
 
-
 ~~~ {.python}
 import pandas as pd
 
 d = pd.read_csv('A2_mosquito_data.csv')
 print d
 ~~~
-
 ~~~ {.output}
     year  temperature  rainfall  mosquitos
 0   1960           82       200        180
@@ -94,9 +88,7 @@ print d
 48  2008           73       198        176
 49  2009           86       215        187
 50  2010           87       127        129
-
 ~~~
-
 
 The import seems to be working properly, so that's good news,
 but does anyone have anyone see anything about the code that they don't like?
@@ -109,14 +101,12 @@ which is that in order to understand what our code is doing so that we can quick
 we need to *write code for people, not computers*,
 and an important first step is to *use meaningful varible names*.
 
-
 ~~~ {.python}
 import pandas as pd
 
 data = pd.read_csv('A2_mosquito_data.csv')
 print data.head()
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 0  1960           82       200        180
@@ -124,9 +114,7 @@ print data.head()
 2  1962           89       231        207
 3  1963           74       114        121
 4  1964           78       147        140
-
 ~~~
-
 
 The `.head()` method lets us just look at the first few rows of the data.
 A method is a function attached to an object that operates on that object.
@@ -145,7 +133,6 @@ To rerun all of the cells in a notebook you can select `Cell -> Run All` from th
 data['temperature'] = (data['temperature'] - 32) * 5 / 9.0
 print data.head()
 ~~~
-
 ~~~ {.output}
    year  temperature  rainfall  mosquitos
 0  1960    27.777778       200        180
@@ -153,9 +140,7 @@ print data.head()
 2  1962    31.666667       231        207
 3  1963    23.333333       114        121
 4  1964    25.555556       147        140
-
 ~~~
-
 
 That's better.
 Now let's go ahead and conduct a regression on the data.
@@ -168,11 +153,10 @@ import statsmodels.api as sm
 regr_results = sm.OLS.from_formula('mosquitos ~ temperature + rainfall', data).fit()
 regr_results.summary()
 ~~~
-
 ~~~ {.output}
 <class 'statsmodels.iolib.summary.Summary'>
 """
-                            OLS Regression Results                            
+                            OLS Regression Results
 ==============================================================================
 Dep. Variable:              mosquitos   R-squared:                       0.997
 Model:                            OLS   Adj. R-squared:                  0.997
@@ -181,7 +165,7 @@ Date:                Sat, 18 Jan 2014   Prob (F-statistic):           3.68e-61
 Time:                        13:10:18   Log-Likelihood:                -111.54
 No. Observations:                  51   AIC:                             229.1
 Df Residuals:                      48   BIC:                             234.9
-Df Model:                           2                                         
+Df Model:                           2
 ===============================================================================
                   coef    std err          t      P>|t|      [95.0% Conf. Int.]
 -------------------------------------------------------------------------------
@@ -201,7 +185,6 @@ strong multicollinearity or other numerical problems.
 """
 ~~~
 
-
 As you can see `statsmodels` lets us use the names of the columns in our dataframe
 to clearly specify the form of the statistical model we want to fit.
 This also makes the code more readable since the model we are fitting is written in a nice,
@@ -211,39 +194,31 @@ This summary is nice to look at, but it isn't really useful for doing more compu
 so we can look up particular values related to the regression using the `regr_results` attributes.
 These are variables that are attached to `regr_results`.
 
-
 ~~~ {.python}
 print regr_results.params
 print regr_results.rsquared
 ~~~
-
 ~~~ {.output}
 Intercept      17.545739
 temperature     0.871943
 rainfall        0.696717
 dtype: float64
 0.996966873691
-
 ~~~
 
-
 If we want to hold onto these values for later we can assign them to variables:
-
 
 ~~~ {.python}
 parameters = regr_results.params
 rsquared = regr_results.rsquared
 ~~~
 
-
 And then we can plot the observed data against the values predicted by our regression to visualize the results.
 First, remember to tell the notebook that we want our plots to appear in the notebook itself.
-
 
 ~~~ {.python}
 %matplotlib inline
 ~~~
-
 
 ~~~ {.python}
 import matplotlib.pyplot as plt
@@ -253,19 +228,16 @@ plt.plot(predicted, data['mosquitos'], 'ro')
 min_mosquitos, max_mosquitos = min(data['mosquitos']), max(data['mosquitos'])
 plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
 ~~~
-
 ~~~ {.output}
 [<matplotlib.lines.Line2D at 0x56eb950>]
 ~~~
 
 ![Regression of mosquitoes](fig/02-modularization-documentation_19_1.png)
 
-
 OK, great.
 So putting this all together we now have a piece of code that imports the modules we need,
 loads the data into memory, fits a regression to the data,
 and stores the parameters and fit of data.
-
 
 ~~~ {.python}
 import pandas as pd
@@ -284,20 +256,17 @@ plt.plot([min_mosquitos, max_mosquitos], [min_mosquitos, max_mosquitos], 'k-')
 print parameters
 print "R^2 = ", rsquared
 ~~~
-
 ~~~ {.output}
 Intercept      17.545739
 temperature     0.871943
 rainfall        0.696717
 dtype: float64
 R^2 =  0.996966873691
-
 ~~~
 
 ![Regression of mosquitoes](fig/02-modularization-documentation_21_1.png)
 
 ## Functions
-
 
 The next thing we need to do is loop over all of the possible data files,
 but in order to do that we're going to need to grow our code some more.
@@ -309,14 +278,13 @@ We'll do this using functions.
 
 Functions in Python take the general form
 
-~~~python
+~~~ {.python}
 def function_name(inputs):
     do stuff
     return output
 ~~~
 
 So, if we want to write a function that returns the value of a number squared we could use:
-
 
 ~~~ {.python}
 def square(x):
@@ -326,16 +294,12 @@ def square(x):
 print "Four squared is", square(4)
 print "Five squared is", square(5)
 ~~~
-
 ~~~ {.output}
 Four squared is 16
 Five squared is 25
-
 ~~~
 
-
 We can also just return the desired value directly.
-
 
 ~~~ {.python}
 def square(x):
@@ -343,42 +307,37 @@ def square(x):
 
 print square(3)
 ~~~
-
 ~~~ {.output}
 9
-
 ~~~
 
-
 And remember, if we want to use the result of the function later we need to store it somewhere.
-
 
 ~~~ {.python}
 two_squared = square(2)
 print two_squared
 ~~~
-
 ~~~ {.output}
 4
-
 ~~~
 
-
-> ## Challenges {.challenge}
-> 
-> 1. Write a function that converts temperature from Fahrenheit to
->    Celcius and use it to replace
-> 
-> ~~~python
+> ## Temperature conversion function {.challenge}
+>
+> Write a function that converts temperature from Fahrenheit to
+> Celcius and use it to replace
+>
+> ~~~ {.python}
 > data['temperature'] = (data['temperature'] - 32) * 5 / 9.0
 > ~~~
-> 
+>
 > in our program.
-> 
-> 2. Write a function called `analyze()` that takes `data` as an
->    input, performs the regression, makes the observed-predicted
->    plot, and returns `parameters`.
-> 
+
+> ## Putting it all together {.challenge}
+>
+> Write a function called `analyze()` that takes `data` as an
+> input, performs the regression, makes the observed-predicted
+> plot, and returns `parameters`.
+>
 > *Walk through someone's result.
 > When discussing talk about different names.
 > E.g., fahr_to_celcius is better than temp_to_celcius since it is
@@ -386,12 +345,9 @@ print two_squared
 > Talk about the fact that even though this doesn't save us any lines
 > of code it's still easier to read.*
 
-
 ## The call stack
 
-
-Let's take a closer look at what happens when we call fahr_to_celsius(32.0). To make things clearer, we'll start by putting the initial value 32.0 in a variable and store the final result in one as well:
-
+Let's take a closer look at what happens when we call `fahr_to_celsius(32.0)`. To make things clearer, we'll start by putting the initial value 32.0 in a variable and store the final result in one as well:
 
 ~~~ {.python}
 def fahr_to_celsius(tempF):
@@ -402,8 +358,7 @@ original = 32.0
 final = fahr_to_celsius(original)
 ~~~
 
-
-#### Call Stack (Initial State)
+### Call Stack (Initial State)
 
 When the first three lines of this function are executed the function is created,
 but nothing happens.
@@ -411,9 +366,9 @@ The function is like a recipe,
 it contains the information about how to do something,
 but it doesn't do so until you explicitly ask it to.
 We then create the variable `original` and assign the value 32.0 to it.
-The values `tempF` and `tempC` don't currently exist. 
+The values `tempF` and `tempC` don't currently exist.
 
-#### Call Stack Immediately After Function Call
+### Call Stack Immediately After Function Call
 
 When we call `fahr_to_celsius`,
 Python creates another stack frame to hold fahr_to_celsius's variables.
@@ -422,7 +377,7 @@ so in our case `tempF`.
 As the function is executed variables created by the function are stored in the functions stack frame,
 so `tempC` is created in the `fahr_to_celsius` stack frame.
 
-#### Call Stack At End Of Function Call
+### Call Stack At End Of Function Call
 
 When the call to `fahr_to_celsius` returns a value,
 Python throws away `fahr_to_celsius`'s stack frame,
@@ -430,7 +385,7 @@ including all of the variables it contains,
 and creates a new variable
 in the original stack frame to hold the temperature in Celsius.
 
-#### Call Stack After End
+### Call Stack After End
 
 This final stack frame is always there;
 it holds the variables we defined outside the functions in our code.
@@ -438,20 +393,16 @@ What it doesn't hold is the variables that were in the other stack frames.
 If we try to get the value of `tempF` or `tempC` after our functions have finished running,
 Python tells us that there's no such thing:
 
-
-
 ~~~ {.python}
 print tempC
 ~~~
-
-~~~ {.output}
+~~~ {.error}
 NameError                                 Traceback (most recent call last)
 <ipython-input-14-3054d7679e45> in <module>()
 ----> 1 print tempC
 
 NameError: name 'tempC' is not defined
 ~~~
-
 
 The reason for this is encapsulation,
 and it's one of the key to writing correct, comprehensible programs.
@@ -463,25 +414,21 @@ which quickly overloads our short-term memory.
 
 ## Testing Functions
 
-
 Once we start putting things into functions so that we can re-use them,
 we need to start testing that those functions are working correctly.
 The most basic thing we can do is some informal testing to make sure the function is doing what it is supposed to do.
-To see how to do this, let's write a function to center the values in a dataset prior to conducting statistical analysis. 
+To see how to do this, let's write a function to center the values in a dataset prior to conducting statistical analysis.
 Centering means setting the mean of each variable to be the same value, typically zero.
-
 
 ~~~ {.python}
 def center(data):
     return data - data.mean()
 ~~~
 
-
 We could test this on our actual data,
 but since we don't know what the values ought to be,
 it will be hard to tell if the result was correct.
 Instead, let's create a made up data frame where we know what the result should look like.
-
 
 ~~~ {.python}
 import pandas as pd
@@ -489,14 +436,11 @@ import pandas as pd
 test_data = pd.DataFrame([[1, 1], [1, 2]])
 print test_data
 ~~~
-
 ~~~ {.output}
    0  1
 0  1  1
 1  1  2
-
 ~~~
-
 
 Now that we've made some test data we need to figure out what we think the result should be
 and we need to do this *before* we run the test.
@@ -507,28 +451,22 @@ So, what should the result of running `center(data)` be?
 
 OK, let's go ahead and run the function.
 
-
 ~~~ {.python}
 print center(test_data)
 ~~~
-
 ~~~ {.output}
    0    1
 0  0 -0.5
 1  0  0.5
-
 ~~~
-
 
 That looks right,
 so let's try `center` on our real data:
-
 
 ~~~ {.python}
 data = pd.read_csv('A2_mosquito_data.csv')
 print center(data)
 ~~~
-
 ~~~ {.output}
     year  temperature    rainfall  mosquitos
 0    -25     1.607843   -7.039216  -5.235294
@@ -582,13 +520,10 @@ print center(data)
 48    23    -7.392157   -9.039216  -9.235294
 49    24     5.607843    7.960784   1.764706
 50    25     6.607843  -80.039216 -56.235294
-
 ~~~
-
 
 It's hard to tell from the default output whether the result is correct,
 but there are a few simple tests that will reassure us:
-
 
 ~~~ {.python}
 print 'original mean:'
@@ -598,7 +533,6 @@ print
 print 'mean of centered data:'
 centered.mean()
 ~~~
-
 ~~~ {.output}
 original mean:
 year           1985.000000
@@ -608,19 +542,17 @@ mosquitos       185.235294
 dtype: float64
 
 mean of centered data:
-</code></pre><pre class='out'><code>year           0.000000e+00
+year           0.000000e+00
 temperature    1.393221e-15
 rainfall       6.687461e-15
 mosquitos     -1.337492e-14
 dtype: float64
 ~~~
 
-
 The mean of the centered data is very close to zero;
 it's not quite zero because of floating point precision issues.
 We can even go further and check that the standard deviation hasn't changed
 (which it shouldn't if we've just centered the data):
-
 
 ~~~ {.python}
 print 'std dev before and after:'
@@ -628,7 +560,6 @@ print data.std()
 print
 print centered.std()
 ~~~
-
 ~~~ {.output}
 std dev before and after:
 year           14.866069
@@ -642,16 +573,13 @@ temperature     6.135400
 rainfall       56.560396
 mosquitos      39.531551
 dtype: float64
-
 ~~~
-
 
 The standard deviations look the same.
 It's still possible that our function is wrong,
 but it seems unlikely enough that we we're probably in good shape for now.
 
 ## Documentation
-
 
 OK, the `center` function seems to be working fine.
 Does anyone else see anything that's missing before we move on?
@@ -665,18 +593,15 @@ and trying to remember exactly what it was doing just based on the code.
 
 The usual way to put documentation in code is to add *comments* like this:
 
-
 ~~~ {.python}
 # center(data): return a new DataFrame containing the original data centered around zero.
 def center(data, desired):
     return data - data.mean()
 ~~~
 
-
 There's a better way to do this in Python.
 If the first thing in a function is a string that isn't assigned to a variable,
 that string is attached to the function as its documentation:
-
 
 ~~~ {.python}
 def center(data, desired):
@@ -684,34 +609,27 @@ def center(data, desired):
     return data - data.mean()
 ~~~
 
-
 This is better because we can now ask Python's built-in help system to show us the documentation for the function.
-
 
 ~~~ {.python}
 help(center)
 ~~~
-
 ~~~ {.output}
 Help on function center in module __main__:
 
 center(data, desired)
     Return a new DataFrame containing the original data centered around zero.
-
-
 ~~~
-
 
 A string like this is called a *docstring*
 and there are also automatic documentation generators that use these docstrings to produce documentation for users.
 We use triple quotes because
 it allows us to include multiple lines of text and because it is considered good Python style.
 
-
 ~~~ {.python}
 def center(data):
     """Return a new array containing the original data centered on zero
-    
+
     Example:
     >>> import pandas
     >>> data = pandas.DataFrame([[0, 1], [0, 2])
@@ -720,19 +638,17 @@ def center(data):
     0  0 -0.5
     1  0  0.5
 
-     
     """
     return data - data.mean()
 
 help(center)
 ~~~
-
 ~~~ {.output}
 Help on function center in module __main__:
 
 center(data)
     Return a new array containing the original data centered on zero
-    
+
     Example:
     >>> import pandas
     >>> data = pandas.DataFrame([[0, 1], [0, 2])
@@ -740,22 +656,19 @@ center(data)
        0    1
     0  0 -0.5
     1  0  0.5
-
-
 ~~~
 
-### Challenge
+> ## Testing {.challenge}
+> Test your temperature conversion function to make sure it's working
+> (think about some temperatures that you easily know the conversion for).
 
-
-1. Test your temperature conversion function to make sure it's working
-   (think about some temperatures that you easily know the conversion for).
-2. Add documentation to both the temperature conversation function and the analysis function.
+> ## Documenting {.challenge}
+> Add documentation to both the temperature conversion function
+> and the analysis function.
 
 ## Looping over files
 
-
 So now our code looks something like this:
-
 
 ~~~ {.python}
 import pandas as pd
@@ -769,14 +682,14 @@ def fahr_to_celsius(tempF):
 
 def analyze(data):
     """Perform regression analysis on mosquito data
-    
+
     Takes a dataframe as input that includes columns named 'temperature',
     'rainfall', and 'mosquitos'.
-    
+
     Performs a multiple regression to predict the number of mosquitos.
     Creates an observed-predicted plot of the result and
     returns the parameters of the regression.
-    
+
     """
     regr_results = sm.OLS.from_formula('mosquitos ~ temperature + rainfall', data).fit()
     parameters = regr_results.params
@@ -792,17 +705,14 @@ data['temperature'] = fahr_to_celsius(data['temperature'])
 regr_results = analyze(data)
 print parameters
 ~~~
-
 ~~~ {.output}
 Intercept      17.545739
 temperature     0.871943
 rainfall        0.696717
 dtype: float64
-
 ~~~
 
 ![Regression of mosquitoes](fig/02-modularization-documentation_64_1.png)
-
 
 Now we want to loop over all of the possible data files,
 and to do that we need to know their names.
@@ -810,36 +720,28 @@ If we only had a dozen files we could write them all down,
 but if we have hundreds of files or the filenames change then that won't really work.
 Fortunately Python has a built in library to help us find the files we want to work with called `glob`.
 
-
 ~~~ {.python}
 import glob
 
 filenames = glob.glob('*.csv')
 print filenames
 ~~~
-
 ~~~ {.output}
 ['A1_mosquito_data.csv', 'B2_mosquito_data.csv', 'A3_mosquito_data.csv', 'B1_mosquito_data.csv', 'A2_mosquito_data.csv']
-
 ~~~
-
 
 The object returned by `glob` is a list of strings.
 A list is a Python data type that holds a group of potentially heterogenous values.
 That means it can hold pretty much anything,
 including functions.
 
-
 ~~~ {.python}
 mylist = [1, 'a', center]
 print mylist
 ~~~
-
 ~~~ {.output}
 [1, 'a', <function center at 0x5c63b18>]
-
 ~~~
-
 
 In this case all of the values are strings
 that contain the names of all of the files that match the expression given to `glob`,
@@ -849,24 +751,20 @@ Let's restrict the filenames a little more finely,
 so that we don't accidentally get any data we don't want,
 and print out the filenames one at a time.
 
-
 ~~~ {.python}
 filenames =glob.glob('*data.csv')
 for filename in filenames:
     print filename
 ~~~
-
 ~~~ {.output}
 A1_mosquito_data.csv
 B2_mosquito_data.csv
 A3_mosquito_data.csv
 B1_mosquito_data.csv
 A2_mosquito_data.csv
-
 ~~~
 
-### Challenge
-
-
-Modify your code to loop over all of the files in your directory,
-making an observed-predicted plot for each file and printing the parameters.
+> ## Looping over files {.challenge}
+>
+> Modify your code to loop over all of the files in your directory,
+> making an observed-predicted plot for each file and printing the parameters.
